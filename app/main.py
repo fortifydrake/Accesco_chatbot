@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers.webhook import router as webhook_router
+from fastapi import Request
 
 app = FastAPI()
 
@@ -17,10 +18,10 @@ app.add_middleware(
 
 # 👇 ROOT URL → CHATBOT
 @app.get("/", response_class=HTMLResponse)
-def show_chat():
+def show_chat(request: Request):
     return templates.TemplateResponse(
         "chat.html",
-        {"request": {}}
+        {"request": request}
     )
 
 # 👇 DIALOGFLOW WEBHOOK
