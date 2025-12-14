@@ -1,25 +1,17 @@
 import os
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
 
-# 1️⃣ Read DB URL from environment (Render / local)
-DATABASE_URL = os.getenv("DATABASE_URL")
+class Settings:
+    # App
+    APP_NAME = "Accesco Chatbot"
+    ENV = os.getenv("ENV", "development")
 
-if not DATABASE_URL:
-    raise RuntimeError("DATABASE_URL environment variable not set")
+    # Database
+    DATABASE_URL = os.getenv("DATABASE_URL")
 
-# 2️⃣ Create SQLAlchemy engine
-engine = create_engine(
-    DATABASE_URL,
-    pool_pre_ping=True   # avoids stale connection issues on Render
-)
+    # Dialogflow
+    DIALOGFLOW_PROJECT_ID = os.getenv("DIALOGFLOW_PROJECT_ID")
 
-# 3️⃣ Session factory
-SessionLocal = sessionmaker(
-    autocommit=False,
-    autoflush=False,
-    bind=engine
-)
+    # Security (future)
+    SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret")
 
-# 4️⃣ Base class for models
-Base = declarative_base()
+settings = Settings()
