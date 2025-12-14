@@ -6,4 +6,4 @@ python-dotenv
 pydantic
 python-multipart
 requests
-Jinja2Template
+Jinja2Templates
