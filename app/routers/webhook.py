@@ -26,6 +26,7 @@ print(">>> WEBHOOK LOADED <<<")
 async def webhook(request: Request, db: Session = Depends(get_db)):
     try:
         body = await request.json()
+       # return {"fullfillmentText": "Welcome to the accesco bot"}
     except Exception:
         return {"fulfillmentText": "Invalid JSON received."}
 
