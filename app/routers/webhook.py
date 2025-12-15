@@ -90,7 +90,7 @@ async def webhook(request: Request, db: Session = Depends(get_db)):
     # CANCEL ORDER (Confirmed)
     if intent_lower == "cancel order - yes":
         reply = handle_cancel_confirm(body=body, db=db)
-        return reply
+        return {"fulfillmentText": reply}
     
     # -------------------------------------------------------
     # 📝 CANCEL FEEDBACK
@@ -105,7 +105,7 @@ async def webhook(request: Request, db: Session = Depends(get_db)):
     # TRACK ORDER
     if "track order" in intent_lower:
         reply = handle_track_order(body=body, db=db)
-        return reply
+        return {"fulfillmentText": reply}
 
 
     # -------------------------------------------------------
