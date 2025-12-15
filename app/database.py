@@ -1,13 +1,13 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
-from app.config import settings
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import NullPool
 
-if not settings.DATABASE_URL:
-    raise RuntimeError("DATABASE_URL not set")
+from app.config import settings
 
 engine = create_engine(
     settings.DATABASE_URL,
-    pool_pre_ping=True
+    poolclass=NullPool,              # 🔴 REQUIRED FOR SUPABASE POOLER
+    connect_args={"sslmode": "require"},
 )
 
 SessionLocal = sessionmaker(
@@ -15,9 +15,6 @@ SessionLocal = sessionmaker(
     autoflush=False,
     bind=engine
 )
-
-Base = declarative_base()
-
 def get_db():
     db = SessionLocal()
     try:
