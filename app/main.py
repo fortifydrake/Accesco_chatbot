@@ -9,6 +9,17 @@ app = FastAPI()
 
 templates = Jinja2Templates(directory="app/templates")
 
+from app.database import SessionLocal
+
+@app.get("/db-test")
+def db_test():
+    db = SessionLocal()
+    try:
+        db.execute("SELECT 1")
+        return {"db": "connected"}
+    finally:
+        db.close()
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
