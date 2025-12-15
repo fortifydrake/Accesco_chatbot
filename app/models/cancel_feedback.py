@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Text, DateTime
 from datetime import datetime
 from app.database import Base
 
-class CancelFeedback(Base):
+class Cancel_Feedback(Base):
     __tablename__ = "cancel_feedback"
 
     id = Column(Integer, primary_key=True, index=True)
