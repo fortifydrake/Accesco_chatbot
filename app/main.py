@@ -10,15 +10,18 @@ app = FastAPI()
 templates = Jinja2Templates(directory="app/templates")
 
 from app.database import SessionLocal
+from sqlalchemy import text
+from app.database import engine
 
 @app.get("/db-test")
 def db_test():
-    db = SessionLocal()
     try:
-        db.execute("SELECT 1")
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
         return {"db": "connected"}
-    finally:
-        db.close()
+    except Exception as e:
+        return {"error": str(e)}
+
 
 app.add_middleware(
     CORSMiddleware,
