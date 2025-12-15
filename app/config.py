@@ -6,9 +6,9 @@ class Settings:
     ENV = os.getenv("ENV", "development")
 
     # Database (Supabase / Render / Local)
-    DATABASE_URL = os.getenv("postgresql://postgres:@Adit779ya@db.slhrjrvlaukebpmgxipk.supabase.co:5432/postgres")
+    DATABASE_URL = os.getenv("DATABASE_URL")
 
     # Security (optional, future use)
-    SECRET_KEY = os.getenv("U7lkuEXEm8", "dev-secret")
+    SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret")
 
 settings = Settings()
